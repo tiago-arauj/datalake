@@ -1,0 +1,229 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Ingest Data Lake",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource",
+						"query": "SELECT * FROM ORDERS"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "order_id",
+									"type": "Int64",
+									"physicalType": "Int64"
+								},
+								"sink": {
+									"name": "order_id",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "customer_id",
+									"type": "String",
+									"physicalType": "VarChar"
+								},
+								"sink": {
+									"name": "customer_id",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "employee_id",
+									"type": "Int64",
+									"physicalType": "Int64"
+								},
+								"sink": {
+									"name": "employee_id",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "order_date",
+									"type": "String",
+									"physicalType": "VarChar"
+								},
+								"sink": {
+									"name": "order_date",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "required_date",
+									"type": "String",
+									"physicalType": "VarChar"
+								},
+								"sink": {
+									"name": "required_date",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "shipped_date",
+									"type": "String",
+									"physicalType": "VarChar"
+								},
+								"sink": {
+									"name": "shipped_date",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ship_via",
+									"type": "Int64",
+									"physicalType": "Int64"
+								},
+								"sink": {
+									"name": "ship_via",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "freight",
+									"type": "Double",
+									"physicalType": "Double"
+								},
+								"sink": {
+									"name": "freight",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ship_name",
+									"type": "String",
+									"physicalType": "VarChar"
+								},
+								"sink": {
+									"name": "ship_name",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ship_address",
+									"type": "String",
+									"physicalType": "VarChar"
+								},
+								"sink": {
+									"name": "ship_address",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ship_city",
+									"type": "String",
+									"physicalType": "VarChar"
+								},
+								"sink": {
+									"name": "ship_city",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ship_region",
+									"type": "String",
+									"physicalType": "VarChar"
+								},
+								"sink": {
+									"name": "ship_region",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ship_postal_code",
+									"type": "String",
+									"physicalType": "VarChar"
+								},
+								"sink": {
+									"name": "ship_postal_code",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ship_country",
+									"type": "String",
+									"physicalType": "VarChar"
+								},
+								"sink": {
+									"name": "ship_country",
+									"type": "String",
+									"physicalType": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MySqlTable1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
